@@ -9,8 +9,8 @@ This repository is intended for building SDKs for WAAP product. Please follow th
 Clone Repo
 
 ```bash
-git clone git@github.com:G-Core/terraform-waap.git
-cd terraform-waap
+git clone git@github.com:G-Core/gcore-waap-sdk-go.git
+cd gcore-waap-sdk-go
 ```
 
 Create a New Branch. Use a descriptive branch name like:
@@ -29,9 +29,12 @@ git checkout -b feature/short-description
 
 # 📤 Submitting a Pull Request
 
-1. Push your branch: ```bash git push origin feature/short-description```
-1. Open a Pull Request to the main branch.
-1. Make sure your PR includes:
+1. Push your branch:
+```bash
+git push origin feature/short-description
+```
+2. Open a Pull Request to the main branch.
+3. Make sure your PR includes:
     1. A clear description of the changes
     1. Any special considerations
     1. How to test the changes (if needed)
@@ -45,3 +48,9 @@ git checkout -b feature/short-description
 # 💬 Questions or Issues?
 
 Open an issue or reach out to us directly if anything is unclear.
+
+# ⚖️ License
+
+This project is licensed under the Apache License 2.0. See the [LICENSE](https://github.com/G-Core/gcore-waap-sdk-go/blob/main/LICENSE) file for details.
+
+# 🙏 Thank You!
