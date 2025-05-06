@@ -9,5 +9,3 @@ compatibility:
 output: sdk.gen.go
 output-options:
   client-type-name: ClientSDK
-import-mapping:
-  ./schemas.yml: "-"
