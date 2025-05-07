@@ -1,9 +1,0 @@
-package: sdk
-generate:
-  models: true
-output-options:
-  skip-prune: true
-# correctly embed structs for allOf (may have side effect of loosing additional properties, such as added "required" flag)
-compatibility:
-  old-merge-schemas: true
-output: sdk-schemas.gen.go
