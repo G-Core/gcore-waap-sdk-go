@@ -9141,8 +9141,6 @@ components:
           title: Detail
           description: A detailed human-readable explanation of the error.
           nullable: true
-          allOf:
-            - type: string
         errors:
           items:
             $ref: '#/components/schemas/APIFieldError'
@@ -9175,8 +9173,6 @@ components:
           title: Detail
           description: A detailed human-readable explanation of the error.
           nullable: true
-          allOf:
-            - type: string
       type: object
       required:
         - type
@@ -10163,9 +10159,6 @@ components:
           title: Expire At
           description: The date and time the silence expires in ISO 8601 format
           nullable: true
-          allOf:
-            - type: string
-              format: date-time
       type: object
       required:
         - insight_type
@@ -11209,9 +11202,6 @@ components:
           title: Expire At
           description: The date and time the silence expires in ISO 8601 format
           nullable: true
-          allOf:
-            - type: string
-              format: date-time
       type: object
       required:
         - id
@@ -13354,9 +13344,6 @@ components:
           title: Expire At
           description: The date and time the silence expires in ISO 8601 format
           nullable: true
-          allOf:
-            - type: string
-              format: date-time
       type: object
       required:
         - comment
