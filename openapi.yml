@@ -5152,6 +5152,16 @@ paths:
             title: Name
           description: Filter tags by their name. Supports '*' as a wildcard character.
           example: xss
+        - name: readable_name
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^[a-zA-Z0-9*_\- ]*$
+            description: Filter tags by their readable name. Supports '*' as a wildcard character.
+            title: Readable Name
+          description: Filter tags by their readable name. Supports '*' as a wildcard.
+          example: Cross-Site Scripting
         - name: reserved
           in: query
           required: false
@@ -9230,10 +9240,9 @@ components:
             https://gcore.com/docs/waap/waap-rules/advanced-rules
           example:
             - >-
-              request.rate_limit([], '.*events', 5, 200, [], [], '', 'ip') and
-              not ('mb-web-ui' in request.headers['Cookie'] or 'mb-mobile-ios'
-              in request.headers['Cookie'] or 'session-token' in
-              request.headers['Cookie']) and not request.headers['session']
+              request.rate_limit([], '.*events', 5, 200, [], [], '', 'ip') and not ('mb-web-ui'
+              in request.headers['Cookie'] or 'mb-mobile-ios' in request.headers['Cookie']
+              or 'session-token' in request.headers['Cookie']) and not request.headers['session']
         phase:
           title: Phase
           description: >-
