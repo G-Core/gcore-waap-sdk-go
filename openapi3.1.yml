@@ -295,12 +295,11 @@ paths:
         in: query
         required: false
         schema:
-          allOf:
-          - $ref: '#/components/schemas/DomainStatus'
+          $ref: '#/components/schemas/DomainStatus'
           description: Filter domains based on the domain status
-          title: Status
+          examples:
+          - active
         description: Filter domains based on the domain status
-        example: active
       - name: name
         in: query
         required: false
@@ -308,10 +307,11 @@ paths:
           type: string
           description: Filter domains based on the domain name. Supports '*' as a
             wildcard character
+          examples:
+          - '*example.com'
           title: Name
         description: Filter domains based on the domain name. Supports '*' as a wildcard
           character
-        example: '*example.com'
       - name: ids
         in: query
         required: false
@@ -319,14 +319,15 @@ paths:
           type: array
           items:
             type: integer
+            exclusiveMinimum: 0
             description: The domain ID
           description: Filter domains based on their IDs
+          examples:
+          - 1
+          - 2
+          - 3
           title: Ids
         description: Filter domains based on their IDs
-        example:
-        - 1
-        - 2
-        - 3
       responses:
         '200':
           description: Successful Response
@@ -417,6 +418,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -508,6 +510,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -603,6 +606,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -689,6 +693,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -781,6 +786,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -876,6 +882,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -973,6 +980,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -1079,6 +1087,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -1086,33 +1095,35 @@ paths:
         in: query
         required: true
         schema:
-          allOf:
-          - $ref: '#/components/schemas/Resolution'
+          $ref: '#/components/schemas/Resolution'
           description: Specifies the granularity of the result data.
-          title: Resolution
         description: Specifies the granularity of the result data.
       - name: start
         in: query
         required: true
         schema:
           type: string
-          format: date-time
-          description: Filter traffic starting from a specified date in ISO 8601 format
+          description: Filter data items starting from a specified date in ISO 8601
+            format
+          examples:
+          - '2024-04-13T00:00:00+01:00'
           title: Start
-        description: Filter traffic starting from a specified date in ISO 8601 format
-        example: '2024-04-13T00:00:00Z'
+        description: Filter data items starting from a specified date in ISO 8601
+          format
       - name: end
         in: query
         required: false
         schema:
-          type: string
-          format: date-time
-          description: Filter traffic up to a specified end date in ISO 8601 format.
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter data items up to a specified end date in ISO 8601 format.
             If not provided, defaults to the current date and time.
+          examples:
+          - '2024-04-14T12:00:00Z'
           title: End
-        description: Filter traffic up to a specified end date in ISO 8601 format.
+        description: Filter data items up to a specified end date in ISO 8601 format.
           If not provided, defaults to the current date and time.
-        example: '2024-04-14T12:00:00Z'
       responses:
         '200':
           description: Successful Response
@@ -1206,6 +1217,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -1214,23 +1226,27 @@ paths:
         required: true
         schema:
           type: string
-          format: date-time
-          description: Filter traffic starting from a specified date in ISO 8601 format
+          description: Filter data items starting from a specified date in ISO 8601
+            format
+          examples:
+          - '2024-04-13T00:00:00+01:00'
           title: Start
-        description: Filter traffic starting from a specified date in ISO 8601 format
-        example: '2024-04-13T00:00:00Z'
+        description: Filter data items starting from a specified date in ISO 8601
+          format
       - name: end
         in: query
         required: false
         schema:
-          type: string
-          format: date-time
-          description: Filter traffic up to a specified end date in ISO 8601 format.
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter data items up to a specified end date in ISO 8601 format.
             If not provided, defaults to the current date and time.
+          examples:
+          - '2024-04-14T12:00:00Z'
           title: End
-        description: Filter traffic up to a specified end date in ISO 8601 format.
+        description: Filter data items up to a specified end date in ISO 8601 format.
           If not provided, defaults to the current date and time.
-        example: '2024-04-14T12:00:00Z'
       - name: ip
         in: query
         required: false
@@ -1242,11 +1258,11 @@ paths:
               format: ipvanyaddress
           - type: 'null'
           description: A list of IPs to filter event statistics.
+          examples:
+          - 1.2.3.4
+          - 5.6.7.8
           title: Ip
         description: A list of IPs to filter event statistics.
-        example:
-        - 1.2.3.4
-        - 5.6.7.8
       - name: reference_id
         in: query
         required: false
@@ -1257,11 +1273,11 @@ paths:
               type: string
           - type: 'null'
           description: A list of reference IDs to filter event statistics.
+          examples:
+          - 13a38422e6ddd05ff7ecee010286909b
+          - 31a38422e6ddd05ff7ecee010286909a
           title: Reference Id
         description: A list of reference IDs to filter event statistics.
-        example:
-        - 13a38422e6ddd05ff7ecee010286909b
-        - 31a38422e6ddd05ff7ecee010286909a
       - name: action
         in: query
         required: false
@@ -1277,11 +1293,11 @@ paths:
               type: string
           - type: 'null'
           description: 'A list of action names to filter on. '
+          examples:
+          - block
+          - captcha
           title: Action
         description: 'A list of action names to filter on. '
-        example:
-        - block
-        - captcha
       - name: result
         in: query
         required: false
@@ -1297,11 +1313,11 @@ paths:
               type: string
           - type: 'null'
           description: 'A list of results to filter event statistics. '
+          examples:
+          - passed
+          - allowed
           title: Result
         description: 'A list of results to filter event statistics. '
-        example:
-        - passed
-        - allowed
       responses:
         '200':
           description: Successful Response
@@ -1392,6 +1408,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -1419,9 +1436,10 @@ paths:
           type: string
           pattern: ^[a-fA-F0-9]{32}$
           description: Filter the response by reference ID.
+          examples:
+          - ad07c06f19054e484974fa22e9fb6bb1
           title: Reference Id
         description: Filter the response by reference ID.
-        example: ad07c06f19054e484974fa22e9fb6bb1
       - name: status_code
         in: query
         required: false
@@ -1483,23 +1501,27 @@ paths:
         required: true
         schema:
           type: string
-          format: date-time
-          description: Filter traffic starting from a specified date in ISO 8601 format
+          description: Filter data items starting from a specified date in ISO 8601
+            format
+          examples:
+          - '2024-04-13T00:00:00+01:00'
           title: Start
-        description: Filter traffic starting from a specified date in ISO 8601 format
-        example: '2024-04-13T00:00:00Z'
+        description: Filter data items starting from a specified date in ISO 8601
+          format
       - name: end
         in: query
         required: false
         schema:
-          type: string
-          format: date-time
-          description: Filter traffic up to a specified end date in ISO 8601 format.
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter data items up to a specified end date in ISO 8601 format.
             If not provided, defaults to the current date and time.
+          examples:
+          - '2024-04-14T12:00:00Z'
           title: End
-        description: Filter traffic up to a specified end date in ISO 8601 format.
+        description: Filter data items up to a specified end date in ISO 8601 format.
           If not provided, defaults to the current date and time.
-        example: '2024-04-14T12:00:00Z'
       - name: limit
         in: query
         required: false
@@ -1613,6 +1635,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -1714,6 +1737,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -1755,23 +1779,27 @@ paths:
         required: true
         schema:
           type: string
-          format: date-time
-          description: Filter traffic starting from a specified date in ISO 8601 format
+          description: Filter data items starting from a specified date in ISO 8601
+            format
+          examples:
+          - '2024-04-13T00:00:00+01:00'
           title: Start
-        description: Filter traffic starting from a specified date in ISO 8601 format
-        example: '2024-04-13T00:00:00Z'
+        description: Filter data items starting from a specified date in ISO 8601
+          format
       - name: end
         in: query
         required: false
         schema:
-          type: string
-          format: date-time
-          description: Filter traffic up to a specified end date in ISO 8601 format.
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter data items up to a specified end date in ISO 8601 format.
             If not provided, defaults to the current date and time.
+          examples:
+          - '2024-04-14T12:00:00Z'
           title: End
-        description: Filter traffic up to a specified end date in ISO 8601 format.
+        description: Filter data items up to a specified end date in ISO 8601 format.
           If not provided, defaults to the current date and time.
-        example: '2024-04-14T12:00:00Z'
       responses:
         '200':
           description: Successful Response
@@ -1862,6 +1890,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -1909,9 +1938,10 @@ paths:
             format: date-time
           - type: 'null'
           description: Filter attacks starting from a specified date in ISO 8601 format
+          examples:
+          - '2024-04-26T13:32:49Z'
           title: Start Time
         description: Filter attacks starting from a specified date in ISO 8601 format
-        example: '2024-04-26T13:32:49Z'
       - name: end_time
         in: query
         required: false
@@ -1921,9 +1951,10 @@ paths:
             format: date-time
           - type: 'null'
           description: Filter attacks up to a specified end date in ISO 8601 format
+          examples:
+          - '2024-04-27T13:00:00Z'
           title: End Time
         description: Filter attacks up to a specified end date in ISO 8601 format
-        example: '2024-04-27T13:00:00Z'
       responses:
         '200':
           description: Successful Response
@@ -2143,10 +2174,11 @@ paths:
           type: string
           description: Filter page sets based on their name. Supports '*' as a wildcard
             character
+          examples:
+          - '*example'
           title: Name
         description: Filter page sets based on their name. Supports '*' as a wildcard
           character
-        example: '*example'
       - name: ids
         in: query
         required: false
@@ -2628,6 +2660,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -2683,10 +2716,11 @@ paths:
           type: string
           description: Filter rules based on their name. Supports '*' as a wildcard
             character.
+          examples:
+          - Block by specific IP rule.
           title: Name
         description: Filter rules based on their name. Supports '*' as a wildcard
           character.
-        example: Block by specific IP rule.
       - name: description
         in: query
         required: false
@@ -2694,29 +2728,30 @@ paths:
           type: string
           description: Filter rules based on their description. Supports '*' as a
             wildcard character.
+          examples:
+          - This rule blocks all the requests coming form a specific IP address.
           title: Description
         description: Filter rules based on their description. Supports '*' as a wildcard
           character.
-        example: This rule blocks all the requests coming form a specific IP address.
       - name: action
         in: query
         required: false
         schema:
-          allOf:
-          - $ref: '#/components/schemas/RuleActionType'
+          $ref: '#/components/schemas/RuleActionType'
           description: Filter to refine results by specific actions
-          title: Action
+          examples:
+          - block
         description: Filter to refine results by specific actions
-        example: block
       - name: enabled
         in: query
         required: false
         schema:
           type: boolean
           description: Filter rules based on their active status
+          examples:
+          - false
           title: Enabled
         description: Filter rules based on their active status
-        example: false
       responses:
         '200':
           description: Successful Response
@@ -2805,6 +2840,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -2907,6 +2943,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -3006,6 +3043,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -3099,6 +3137,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -3201,6 +3240,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -3292,6 +3332,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -3299,10 +3340,8 @@ paths:
         in: path
         required: true
         schema:
-          allOf:
-          - $ref: '#/components/schemas/CustomerRuleState'
+          $ref: '#/components/schemas/CustomerRuleState'
           description: Enable or disable a custom rule
-          title: Action
         description: Enable or disable a custom rule
       - name: rule_id
         in: path
@@ -3399,6 +3438,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -3454,10 +3494,11 @@ paths:
           type: string
           description: Filter rules based on their name. Supports '*' as a wildcard
             character.
+          examples:
+          - Block by specific IP rule.
           title: Name
         description: Filter rules based on their name. Supports '*' as a wildcard
           character.
-        example: Block by specific IP rule.
       - name: description
         in: query
         required: false
@@ -3465,29 +3506,30 @@ paths:
           type: string
           description: Filter rules based on their description. Supports '*' as a
             wildcard character.
+          examples:
+          - This rule blocks all the requests coming form a specific IP address.
           title: Description
         description: Filter rules based on their description. Supports '*' as a wildcard
           character.
-        example: This rule blocks all the requests coming form a specific IP address.
       - name: action
         in: query
         required: false
         schema:
-          allOf:
-          - $ref: '#/components/schemas/FirewallRuleActionType'
+          $ref: '#/components/schemas/FirewallRuleActionType'
           description: Filter to refine results by specific firewall actions
-          title: Action
+          examples:
+          - allow
         description: Filter to refine results by specific firewall actions
-        example: allow
       - name: enabled
         in: query
         required: false
         schema:
           type: boolean
           description: Filter rules based on their active status
+          examples:
+          - false
           title: Enabled
         description: Filter rules based on their active status
-        example: false
       responses:
         '200':
           description: Successful Response
@@ -3576,6 +3618,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -3678,6 +3721,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -3777,6 +3821,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -3870,6 +3915,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -3972,6 +4018,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -4063,6 +4110,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -4070,10 +4118,8 @@ paths:
         in: path
         required: true
         schema:
-          allOf:
-          - $ref: '#/components/schemas/CustomerRuleState'
+          $ref: '#/components/schemas/CustomerRuleState'
           description: Enable or disable a firewall rule
-          title: Action
         description: Enable or disable a firewall rule
       - name: rule_id
         in: path
@@ -4170,6 +4216,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -4194,9 +4241,10 @@ paths:
             type: string
           - type: 'null'
           description: Determine the field to order results by
+          examples:
+          - -id
           title: Ordering
         description: Determine the field to order results by
-        example: -id
       - name: limit
         in: query
         required: false
@@ -4226,10 +4274,11 @@ paths:
           type: string
           description: Filter rules based on their name. Supports '*' as a wildcard
             character.
+          examples:
+          - Block by specific IP rule
           title: Name
         description: Filter rules based on their name. Supports '*' as a wildcard
           character.
-        example: Block by specific IP rule
       - name: description
         in: query
         required: false
@@ -4237,29 +4286,30 @@ paths:
           type: string
           description: Filter rules based on their description. Supports '*' as a
             wildcard character.
+          examples:
+          - This rule blocks all the requests coming form a specific IP address
           title: Description
         description: Filter rules based on their description. Supports '*' as a wildcard
           character.
-        example: This rule blocks all the requests coming form a specific IP address
       - name: action
         in: query
         required: false
         schema:
-          allOf:
-          - $ref: '#/components/schemas/RuleActionType'
+          $ref: '#/components/schemas/RuleActionType'
           description: Filter to refine results by specific actions
-          title: Action
+          examples:
+          - block
         description: Filter to refine results by specific actions
-        example: block
       - name: enabled
         in: query
         required: false
         schema:
           type: boolean
           description: Filter rules based on their active status
+          examples:
+          - false
           title: Enabled
         description: Filter rules based on their active status
-        example: 'false'
       - name: phase
         in: query
         required: false
@@ -4276,6 +4326,8 @@ paths:
             \ a response before they are sent back to the client.\n\nThe \"body_filter\"\
             \ phase is responsible for modifying the body of a response before it\
             \ is sent back to the client."
+          examples:
+          - access
           title: Phase
         description: "Filter rules based on the WAAP request/response phase for applying\
           \ the rule.\n\n\nThe \"access\" phase is responsible for modifying the request\
@@ -4283,7 +4335,6 @@ paths:
           \ phase is responsible for modifying the HTTP headers of a response before\
           \ they are sent back to the client.\n\nThe \"body_filter\" phase is responsible\
           \ for modifying the body of a response before it is sent back to the client."
-        example: access
       responses:
         '200':
           description: Successful Response
@@ -4372,6 +4423,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -4474,6 +4526,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -4573,6 +4626,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -4666,6 +4720,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -4768,6 +4823,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -4775,10 +4831,8 @@ paths:
         in: path
         required: true
         schema:
-          allOf:
-          - $ref: '#/components/schemas/CustomerRuleState'
+          $ref: '#/components/schemas/CustomerRuleState'
           description: Enable or disable an advanced rule
-          title: Action
         description: Enable or disable an advanced rule
       - name: rule_id
         in: path
@@ -4968,9 +5022,10 @@ paths:
             type: string
           - type: 'null'
           description: Determine the field to order results by
+          examples:
+          - name
           title: Ordering
         description: Determine the field to order results by
-        example: name
       - name: limit
         in: query
         required: false
@@ -5000,9 +5055,10 @@ paths:
           type: string
           pattern: ^[a-zA-Z0-9*_]*$
           description: Filter tags by their name. Supports '*' as a wildcard character.
+          examples:
+          - xss
           title: Name
         description: Filter tags by their name. Supports '*' as a wildcard character.
-        example: xss
       - name: readable_name
         in: query
         required: false
@@ -5011,10 +5067,11 @@ paths:
           pattern: ^[a-zA-Z0-9*_\- ]*$
           description: Filter tags by their readable name. Supports '*' as a wildcard
             character.
+          examples:
+          - Cross-Site Scripting
           title: Readable Name
         description: Filter tags by their readable name. Supports '*' as a wildcard
           character.
-        example: Cross-Site Scripting
       - name: reserved
         in: query
         required: false
@@ -5123,9 +5180,10 @@ paths:
             type: string
           - type: 'null'
           description: Determine the field to order results by
+          examples:
+          - name
           title: Ordering
         description: Determine the field to order results by
-        example: name
       - name: limit
         in: query
         required: false
@@ -5155,10 +5213,11 @@ paths:
           type: string
           description: Filter organizations by their name. Supports '*' as a wildcard
             character.
+          examples:
+          - Comcast
           title: Name
         description: Filter organizations by their name. Supports '*' as a wildcard
           character.
-        example: Comcast
       responses:
         '200':
           description: Successful Response
@@ -5249,6 +5308,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -5480,6 +5540,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -5590,6 +5651,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -5685,6 +5747,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -5790,6 +5853,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -5890,6 +5954,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -5989,6 +6054,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -6094,6 +6160,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -6190,6 +6257,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -6285,6 +6353,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -6386,6 +6455,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -6555,6 +6625,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -6772,15 +6843,15 @@ paths:
         in: query
         required: false
         schema:
-          type: integer
-          exclusiveMinimum: 0
-          description: The identifier for a domain. When specified, the response will
-            exclusively contain data pertinent to the indicated domain, filtering
-            out information from other domains.
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0
+            title: Domain ID
+            description: The identifier for a domain. When specified, the response
+              will exclusively contain data pertinent to the indicated domain, filtering
+              out information from other domains.
+          - type: 'null'
           title: Domain Id
-        description: The identifier for a domain. When specified, the response will
-          exclusively contain data pertinent to the indicated domain, filtering out
-          information from other domains.
       responses:
         '200':
           description: Successful Response
@@ -6989,9 +7060,14 @@ paths:
         required: true
         schema:
           type: integer
-          description: The domain ID
-          title: Domain Id
-        description: The domain ID
+          exclusiveMinimum: 0
+          title: Domain ID
+          description: The identifier for a domain. When specified, the response will
+            exclusively contain data pertinent to the indicated domain, filtering
+            out information from other domains.
+        description: The identifier for a domain. When specified, the response will
+          exclusively contain data pertinent to the indicated domain, filtering out
+          information from other domains.
       responses:
         '200':
           description: Successful Response
@@ -7101,9 +7177,14 @@ paths:
         required: true
         schema:
           type: integer
-          description: The domain ID
-          title: Domain Id
-        description: The domain ID
+          exclusiveMinimum: 0
+          title: Domain ID
+          description: The identifier for a domain. When specified, the response will
+            exclusively contain data pertinent to the indicated domain, filtering
+            out information from other domains.
+        description: The identifier for a domain. When specified, the response will
+          exclusively contain data pertinent to the indicated domain, filtering out
+          information from other domains.
       responses:
         '200':
           description: Successful Response
@@ -7211,9 +7292,14 @@ paths:
         required: true
         schema:
           type: integer
-          description: The domain ID
-          title: Domain Id
-        description: The domain ID
+          exclusiveMinimum: 0
+          title: Domain ID
+          description: The identifier for a domain. When specified, the response will
+            exclusively contain data pertinent to the indicated domain, filtering
+            out information from other domains.
+        description: The identifier for a domain. When specified, the response will
+          exclusively contain data pertinent to the indicated domain, filtering out
+          information from other domains.
       responses:
         '200':
           description: Successful Response
@@ -7321,9 +7407,14 @@ paths:
         required: true
         schema:
           type: integer
-          description: The domain ID
-          title: Domain Id
-        description: The domain ID
+          exclusiveMinimum: 0
+          title: Domain ID
+          description: The identifier for a domain. When specified, the response will
+            exclusively contain data pertinent to the indicated domain, filtering
+            out information from other domains.
+        description: The identifier for a domain. When specified, the response will
+          exclusively contain data pertinent to the indicated domain, filtering out
+          information from other domains.
       responses:
         '200':
           description: Successful Response
@@ -7617,6 +7708,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -7624,11 +7716,9 @@ paths:
         in: query
         required: false
         schema:
-          allOf:
-          - $ref: '#/components/schemas/InsightSortBy'
+          $ref: '#/components/schemas/InsightSortBy'
           description: Sort the response by given field.
           default: -last_seen
-          title: Ordering
       - name: limit
         in: query
         required: false
@@ -7789,6 +7879,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -7888,6 +7979,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -8151,6 +8243,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -8249,6 +8342,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -8256,11 +8350,9 @@ paths:
         in: query
         required: false
         schema:
-          allOf:
-          - $ref: '#/components/schemas/InsightSilenceSortBy'
+          $ref: '#/components/schemas/InsightSilenceSortBy'
           description: Sort the response by given field.
           default: -id
-          title: Ordering
       - name: limit
         in: query
         required: false
@@ -8418,6 +8510,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -8519,6 +8612,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -8626,6 +8720,7 @@ paths:
         required: true
         schema:
           type: integer
+          exclusiveMinimum: 0
           description: The domain ID
           title: Domain Id
         description: The domain ID
@@ -8705,6 +8800,229 @@ paths:
                 detail: An unexpected condition was encountered which prevented the
                   server from fulfilling the request.
           description: Internal Server Error
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json:
+              example:
+                detail: Auth token is missing or invalid
+  /v1/ip-reputation:
+    get:
+      tags:
+      - IP Reputation
+      summary: Get a IP tags
+      description: Retrieve a list of tags associated with the IP address grouped
+        by domains. This will return records for all domains which were accessed by
+        the IP and received tags.
+      operationId: get_ip_reputation_summary_v1_ip_reputation_get
+      parameters:
+      - name: ip
+        in: query
+        required: true
+        schema:
+          type: string
+          format: ipvanyaddress
+          title: Ip
+        description: The IP address to check
+      - name: ordering
+        in: query
+        required: false
+        schema:
+          enum:
+          - date
+          - -date
+          - domain_name
+          - -domain_name
+          type: string
+          description: Sort the response by given field.
+          default: -date
+          title: Ordering
+        description: Sort the response by given field.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 0
+          description: Number of items to return
+          default: 100
+          title: Limit
+        description: Number of items to return
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100000
+          minimum: 0
+          description: Number of items to skip
+          default: 0
+          title: Offset
+        description: Number of items to skip
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_LocalIpTagsRecord_'
+        '400':
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+              example:
+                type: http-bad-request
+                title: Bad Request
+                status: 400
+                detail: 'Invalid domain name: '''''''''
+          description: Bad Request
+        '403':
+          description: Unauthenticated
+          content:
+            application/problem+json:
+              example:
+                detail: Permission denied
+        '404':
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+              example:
+                type: http-not-found
+                title: Not Found
+                status: 404
+                detail: The resource is not found
+          description: Not Found
+        '422':
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/APICompositeError'
+              example:
+                type: request-validation-failed
+                title: Request validation error.
+                status: 422
+                detail: One or more fields have validation errors.
+                errors:
+                - loc:
+                  - body
+                  - name
+                  detail: Input should be a valid string
+                - loc:
+                  - body
+                  - date
+                  detail: Field required
+                - loc:
+                  - query
+                  - limit
+                  detail: Field required
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+              example:
+                type: internal-server-error
+                title: Internal server error.
+                status: 500
+                detail: An unexpected condition was encountered which prevented the
+                  server from fulfilling the request.
+          description: Internal Server Error
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json:
+              example:
+                detail: Auth token is missing or invalid
+  /v1/ip-reputation/clear-local-tags:
+    post:
+      tags:
+      - IP Reputation
+      summary: Clear local IP tags
+      description: Clear all tags associated between the provided IP addresses and
+        domains.
+      operationId: delete_local_ip_tags_v1_ip_reputation_clear_local_tags_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/IPReputationDeleteRequest'
+              type: array
+              maxItems: 100
+              minItems: 1
+              title: Items
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+              example:
+                type: http-bad-request
+                title: Bad Request
+                status: 400
+                detail: 'Invalid domain name: '''''''''
+        '403':
+          description: Unauthenticated
+          content:
+            application/problem+json:
+              example:
+                detail: Permission denied
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+              example:
+                type: http-not-found
+                title: Not Found
+                status: 404
+                detail: The resource is not found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/APICompositeError'
+              example:
+                type: request-validation-failed
+                title: Request validation error.
+                status: 422
+                detail: One or more fields have validation errors.
+                errors:
+                - loc:
+                  - body
+                  - name
+                  detail: Input should be a valid string
+                - loc:
+                  - body
+                  - date
+                  detail: Field required
+                - loc:
+                  - query
+                  - limit
+                  detail: Field required
+        '500':
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+              example:
+                type: internal-server-error
+                title: Internal server error.
+                status: 500
+                detail: An unexpected condition was encountered which prevented the
+                  server from fulfilling the request.
         '401':
           description: Unauthorized
           content:
@@ -8801,24 +9119,25 @@ components:
         name:
           type: string
           maxLength: 100
+          minLength: 1
+          pattern: ^[A-Za-z0-9\s.:'";<>?&|\\]+$
           title: Name
           description: The name assigned to the rule
+          examples:
+          - Block foobar bot
         description:
-          anyOf:
-          - type: string
-            maxLength: 100
-          - type: 'null'
+          type: string
+          maxLength: 100
           title: Description
           description: The description assigned to the rule
-          default: ''
         enabled:
           type: boolean
           title: Enabled
           description: Whether or not the rule is enabled
         action:
-          allOf:
-          - $ref: '#/components/schemas/CustomerRuleAction-Input'
-          description: The action that the rule takes when triggered
+          $ref: '#/components/schemas/CustomerRuleAction-Input'
+          description: The action that the rule takes when triggered. Only one action
+            can be set per rule.
         source:
           type: string
           minLength: 1
@@ -8969,24 +9288,25 @@ components:
         name:
           type: string
           maxLength: 100
+          minLength: 1
+          pattern: ^[A-Za-z0-9\s.:'";<>?&|\\]+$
           title: Name
           description: The name assigned to the rule
+          examples:
+          - Block foobar bot
         description:
-          anyOf:
-          - type: string
-            maxLength: 100
-          - type: 'null'
+          type: string
+          maxLength: 100
           title: Description
           description: The description assigned to the rule
-          default: ''
         enabled:
           type: boolean
           title: Enabled
           description: Whether or not the rule is enabled
         action:
-          allOf:
-          - $ref: '#/components/schemas/CustomerRuleAction-Output'
-          description: The action that the rule takes when triggered
+          $ref: '#/components/schemas/CustomerRuleAction-Output'
+          description: The action that the rule takes when triggered. Only one action
+            can be set per rule.
         source:
           type: string
           minLength: 1
@@ -9121,8 +9441,7 @@ components:
           examples:
           - /api/v1/paths/{path_id}
         method:
-          allOf:
-          - $ref: '#/components/schemas/ApiPathMethod'
+          $ref: '#/components/schemas/ApiPathMethod'
           description: The API RESTful method
         api_version:
           type: string
@@ -9132,8 +9451,7 @@ components:
           examples:
           - v1
         http_scheme:
-          allOf:
-          - $ref: '#/components/schemas/ApiPathHttpScheme'
+          $ref: '#/components/schemas/ApiPathHttpScheme'
           description: The HTTP version of the API path
         first_detected:
           type: string
@@ -9171,12 +9489,10 @@ components:
           - - accounts
             - internal
         status:
-          allOf:
-          - $ref: '#/components/schemas/ApiPathStatus'
+          $ref: '#/components/schemas/ApiPathStatus'
           description: The status of the discovered API path
         source:
-          allOf:
-          - $ref: '#/components/schemas/ApiPathSource'
+          $ref: '#/components/schemas/ApiPathSource'
           description: The source of the discovered API
         request_count:
           type: integer
@@ -9235,12 +9551,10 @@ components:
           title: End Time
           description: The date and time the scan ended
         status:
-          allOf:
-          - $ref: '#/components/schemas/TaskResultStatus'
+          $ref: '#/components/schemas/TaskResultStatus'
           description: The status of the scan
         type:
-          allOf:
-          - $ref: '#/components/schemas/ApiScanType'
+          $ref: '#/components/schemas/ApiScanType'
           description: The type of scan
         message:
           type: string
@@ -9479,8 +9793,7 @@ components:
           title: Id
           description: The client ID
         service:
-          allOf:
-          - $ref: '#/components/schemas/Service'
+          $ref: '#/components/schemas/Service'
           description: Information about the WAAP service status
         features:
           items:
@@ -9544,7 +9857,13 @@ components:
         content_type:
           items:
             type: string
+            maxLength: 50
+            minLength: 1
+            description: Individual MIME type to match
+            examples:
+            - application/xml
           type: array
+          maxItems: 10
           minItems: 1
           title: Content Type
           description: The list of content types to match against
@@ -9646,10 +9965,14 @@ components:
             type: string
             pattern: ^\w{2}$
           type: array
+          maxItems: 100
           minItems: 1
           title: Country Code
           description: A list of ISO 3166-1 alpha-2 formatted strings representing
             the countries to match against
+          examples:
+          - CN
+          - TW
       type: object
       required:
       - country_code
@@ -9760,6 +10083,7 @@ components:
           anyOf:
           - items:
               type: integer
+              exclusiveMinimum: 0.0
               description: The domain ID
             type: array
           - type: 'null'
@@ -9807,6 +10131,7 @@ components:
           anyOf:
           - items:
               type: integer
+              exclusiveMinimum: 0.0
               description: The domain ID
             type: array
           - type: 'null'
@@ -9858,6 +10183,7 @@ components:
           anyOf:
           - items:
               type: integer
+              exclusiveMinimum: 0.0
               description: The domain ID
             type: array
           - type: 'null'
@@ -9904,24 +10230,25 @@ components:
         name:
           type: string
           maxLength: 100
+          minLength: 1
+          pattern: ^[A-Za-z0-9\s.:'";<>?&|\\]+$
           title: Name
           description: The name assigned to the rule
+          examples:
+          - Block foobar bot
         description:
-          anyOf:
-          - type: string
-            maxLength: 100
-          - type: 'null'
+          type: string
+          maxLength: 100
           title: Description
           description: The description assigned to the rule
-          default: ''
         enabled:
           type: boolean
           title: Enabled
           description: Whether or not the rule is enabled
         action:
-          allOf:
-          - $ref: '#/components/schemas/CustomerRuleAction-Input'
-          description: The action that the rule takes when triggered
+          $ref: '#/components/schemas/CustomerRuleAction-Input'
+          description: The action that the rule takes when triggered. Only one action
+            can be set per rule.
         conditions:
           items:
             $ref: '#/components/schemas/CustomRuleCondition-Input'
@@ -9943,77 +10270,41 @@ components:
     CustomRuleCondition-Input:
       properties:
         ip:
-          anyOf:
-          - $ref: '#/components/schemas/IpCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/IpCondition'
         ip_range:
-          anyOf:
-          - $ref: '#/components/schemas/IpRangeCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/IpRangeCondition'
         url:
-          anyOf:
-          - $ref: '#/components/schemas/UrlCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/UrlCondition'
         user_agent:
-          anyOf:
-          - $ref: '#/components/schemas/UserAgentCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/UserAgentCondition'
         header:
-          anyOf:
-          - $ref: '#/components/schemas/HeaderCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/HeaderCondition'
         header_exists:
-          anyOf:
-          - $ref: '#/components/schemas/HeaderExistsCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/HeaderExistsCondition'
         response_header:
-          anyOf:
-          - $ref: '#/components/schemas/ResponseHeaderCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/ResponseHeaderCondition'
         response_header_exists:
-          anyOf:
-          - $ref: '#/components/schemas/ResponseHeaderExistsCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/ResponseHeaderExistsCondition'
         http_method:
-          anyOf:
-          - $ref: '#/components/schemas/HttpMethodCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/HttpMethodCondition'
         file_extension:
-          anyOf:
-          - $ref: '#/components/schemas/FileExtensionCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/FileExtensionCondition'
         content_type:
-          anyOf:
-          - $ref: '#/components/schemas/ContentTypeCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/ContentTypeCondition'
         country:
-          anyOf:
-          - $ref: '#/components/schemas/CountryCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/CountryCondition'
         organization:
-          anyOf:
-          - $ref: '#/components/schemas/OrganizationCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/OrganizationCondition'
         request_rate:
-          anyOf:
-          - $ref: '#/components/schemas/RequestRateCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/RequestRateCondition'
         owner_types:
-          anyOf:
-          - $ref: '#/components/schemas/OwnerTypesCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/OwnerTypesCondition'
         tags:
-          anyOf:
-          - $ref: '#/components/schemas/TagsCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/TagsCondition'
         session_request_count:
-          anyOf:
-          - $ref: '#/components/schemas/SessionRequestCountCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/SessionRequestCountCondition'
         user_defined_tags:
-          anyOf:
-          - $ref: '#/components/schemas/UserDefinedTagsCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/UserDefinedTagsCondition'
       additionalProperties: false
       type: object
       title: CustomRuleCondition
@@ -10022,77 +10313,41 @@ components:
     CustomRuleCondition-Output:
       properties:
         ip:
-          anyOf:
-          - $ref: '#/components/schemas/IpCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/IpCondition'
         ip_range:
-          anyOf:
-          - $ref: '#/components/schemas/IpRangeCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/IpRangeCondition'
         url:
-          anyOf:
-          - $ref: '#/components/schemas/UrlCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/UrlCondition'
         user_agent:
-          anyOf:
-          - $ref: '#/components/schemas/UserAgentCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/UserAgentCondition'
         header:
-          anyOf:
-          - $ref: '#/components/schemas/HeaderCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/HeaderCondition'
         header_exists:
-          anyOf:
-          - $ref: '#/components/schemas/HeaderExistsCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/HeaderExistsCondition'
         response_header:
-          anyOf:
-          - $ref: '#/components/schemas/ResponseHeaderCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/ResponseHeaderCondition'
         response_header_exists:
-          anyOf:
-          - $ref: '#/components/schemas/ResponseHeaderExistsCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/ResponseHeaderExistsCondition'
         http_method:
-          anyOf:
-          - $ref: '#/components/schemas/HttpMethodCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/HttpMethodCondition'
         file_extension:
-          anyOf:
-          - $ref: '#/components/schemas/FileExtensionCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/FileExtensionCondition'
         content_type:
-          anyOf:
-          - $ref: '#/components/schemas/ContentTypeCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/ContentTypeCondition'
         country:
-          anyOf:
-          - $ref: '#/components/schemas/CountryCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/CountryCondition'
         organization:
-          anyOf:
-          - $ref: '#/components/schemas/OrganizationCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/OrganizationCondition'
         request_rate:
-          anyOf:
-          - $ref: '#/components/schemas/RequestRateCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/RequestRateCondition'
         owner_types:
-          anyOf:
-          - $ref: '#/components/schemas/OwnerTypesCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/OwnerTypesCondition'
         tags:
-          anyOf:
-          - $ref: '#/components/schemas/TagsCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/TagsCondition'
         session_request_count:
-          anyOf:
-          - $ref: '#/components/schemas/SessionRequestCountCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/SessionRequestCountCondition'
         user_defined_tags:
-          anyOf:
-          - $ref: '#/components/schemas/UserDefinedTagsCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/UserDefinedTagsCondition'
       additionalProperties: false
       type: object
       title: CustomRuleCondition
@@ -10103,24 +10358,25 @@ components:
         name:
           type: string
           maxLength: 100
+          minLength: 1
+          pattern: ^[A-Za-z0-9\s.:'";<>?&|\\]+$
           title: Name
           description: The name assigned to the rule
+          examples:
+          - Block foobar bot
         description:
-          anyOf:
-          - type: string
-            maxLength: 100
-          - type: 'null'
+          type: string
+          maxLength: 100
           title: Description
           description: The description assigned to the rule
-          default: ''
         enabled:
           type: boolean
           title: Enabled
           description: Whether or not the rule is enabled
         action:
-          allOf:
-          - $ref: '#/components/schemas/CustomerRuleAction-Output'
-          description: The action that the rule takes when triggered
+          $ref: '#/components/schemas/CustomerRuleAction-Output'
+          description: The action that the rule takes when triggered. Only one action
+            can be set per rule.
         conditions:
           items:
             $ref: '#/components/schemas/CustomRuleCondition-Output'
@@ -10147,63 +10403,39 @@ components:
     CustomerRuleAction-Input:
       properties:
         allow:
-          anyOf:
-          - $ref: '#/components/schemas/RuleAllowAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleAllowAction'
         block:
-          anyOf:
-          - $ref: '#/components/schemas/RuleBlockAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleBlockAction'
         captcha:
-          anyOf:
-          - $ref: '#/components/schemas/RuleCaptchaAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleCaptchaAction'
         handshake:
-          anyOf:
-          - $ref: '#/components/schemas/RuleHandshakeAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleHandshakeAction'
         monitor:
-          anyOf:
-          - $ref: '#/components/schemas/RuleMonitorAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleMonitorAction'
         tag:
-          anyOf:
-          - $ref: '#/components/schemas/RuleTagAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleTagAction'
       additionalProperties: false
       type: object
       title: CustomerRuleAction
-      description: The action that a WAAP rule takes when triggered
+      description: The action that a WAAP rule takes when triggered.
     CustomerRuleAction-Output:
       properties:
         allow:
-          anyOf:
-          - $ref: '#/components/schemas/RuleAllowAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleAllowAction'
         block:
-          anyOf:
-          - $ref: '#/components/schemas/RuleBlockAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleBlockAction'
         captcha:
-          anyOf:
-          - $ref: '#/components/schemas/RuleCaptchaAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleCaptchaAction'
         handshake:
-          anyOf:
-          - $ref: '#/components/schemas/RuleHandshakeAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleHandshakeAction'
         monitor:
-          anyOf:
-          - $ref: '#/components/schemas/RuleMonitorAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleMonitorAction'
         tag:
-          anyOf:
-          - $ref: '#/components/schemas/RuleTagAction'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleTagAction'
       additionalProperties: false
       type: object
       title: CustomerRuleAction
-      description: The action that a WAAP rule takes when triggered
+      description: The action that a WAAP rule takes when triggered.
     CustomerRuleState:
       type: string
       enum:
@@ -10253,6 +10485,7 @@ components:
       properties:
         id:
           type: integer
+          exclusiveMinimum: 0.0
           title: Id
           description: The domain ID
         name:
@@ -10338,6 +10571,21 @@ components:
       type: object
       title: DomainDdosSettings
       description: DDoS settings for a domain.
+    DomainInfo:
+      properties:
+        id:
+          type: integer
+          title: Id
+          description: The unique identifier for the domain
+        name:
+          type: string
+          title: Name
+          description: The domain name
+      type: object
+      required:
+      - id
+      - name
+      title: DomainInfo
     DomainPolicy:
       properties:
         id:
@@ -10353,8 +10601,7 @@ components:
           title: Description
           description: Detailed description of the security rule
         action:
-          allOf:
-          - $ref: '#/components/schemas/PolicyAction'
+          $ref: '#/components/schemas/PolicyAction'
           description: Specifies the action taken by the WAAP upon rule activation
         mode:
           type: boolean
@@ -10430,7 +10677,15 @@ components:
         file_extension:
           items:
             type: string
+            maxLength: 10
+            minLength: 1
+            pattern: '[a-z0-9]+$'
+            description: A file extension without the leading dot
+            examples:
+            - pdf
+            - png
           type: array
+          maxItems: 20
           minItems: 1
           title: File Extension
           description: The list of file extensions to match against
@@ -10444,23 +10699,23 @@ components:
         name:
           type: string
           maxLength: 100
+          minLength: 1
+          pattern: ^[A-Za-z0-9\s.:'";<>?&|\\]+$
           title: Name
           description: The name assigned to the rule
+          examples:
+          - Block foobar bot
         description:
-          anyOf:
-          - type: string
-            maxLength: 100
-          - type: 'null'
+          type: string
+          maxLength: 100
           title: Description
           description: The description assigned to the rule
-          default: ''
         enabled:
           type: boolean
           title: Enabled
           description: Whether or not the rule is enabled
         action:
-          allOf:
-          - $ref: '#/components/schemas/FirewallRuleAction-Input'
+          $ref: '#/components/schemas/FirewallRuleAction-Input'
           description: The action that the rule takes when triggered
         conditions:
           items:
@@ -10514,13 +10769,9 @@ components:
     FirewallRuleCondition:
       properties:
         ip:
-          anyOf:
-          - $ref: '#/components/schemas/IpCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/IpCondition'
         ip_range:
-          anyOf:
-          - $ref: '#/components/schemas/IpRangeCondition'
-          - type: 'null'
+          $ref: '#/components/schemas/IpRangeCondition'
       additionalProperties: false
       type: object
       title: FirewallRuleCondition
@@ -10531,23 +10782,23 @@ components:
         name:
           type: string
           maxLength: 100
+          minLength: 1
+          pattern: ^[A-Za-z0-9\s.:'";<>?&|\\]+$
           title: Name
           description: The name assigned to the rule
+          examples:
+          - Block foobar bot
         description:
-          anyOf:
-          - type: string
-            maxLength: 100
-          - type: 'null'
+          type: string
+          maxLength: 100
           title: Description
           description: The description assigned to the rule
-          default: ''
         enabled:
           type: boolean
           title: Enabled
           description: Whether or not the rule is enabled
         action:
-          allOf:
-          - $ref: '#/components/schemas/FirewallRuleAction-Output'
+          $ref: '#/components/schemas/FirewallRuleAction-Output'
           description: The action that the rule takes when triggered
         conditions:
           items:
@@ -10623,11 +10874,16 @@ components:
           default: false
         header:
           type: string
+          maxLength: 50
+          minLength: 1
           pattern: ^[a-zA-Z0-9-]+$
           title: Header
           description: The request header name
+          examples:
+          - Origin
         value:
           type: string
+          maxLength: 100
           pattern: ^[a-zA-Z0-9-_ :;.\/\"'?!(){}\[\]@<>=\-\+\*#$&`|~^%]+$
           title: Value
           description: The request header value
@@ -10655,9 +10911,13 @@ components:
           default: false
         header:
           type: string
+          maxLength: 50
+          minLength: 1
           pattern: ^[a-zA-Z0-9-]+$
           title: Header
           description: The request header name
+          examples:
+          - Origin
       type: object
       required:
       - header
@@ -10672,14 +10932,34 @@ components:
             condition
           default: false
         http_method:
-          allOf:
-          - $ref: '#/components/schemas/HTTPMethod'
+          $ref: '#/components/schemas/HTTPMethod'
           description: HTTP methods of a request
+          examples:
+          - CONNECT
       type: object
       required:
       - http_method
       title: HttpMethodCondition
       description: Match the incoming HTTP method
+    IPReputationDeleteRequest:
+      properties:
+        ip:
+          type: string
+          format: ipvanyaddress
+          title: Ip
+          description: The IP address to delete tags for
+        domain_id:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Domain Id
+          description: The domain ID to delete tags for
+      additionalProperties: false
+      type: object
+      required:
+      - ip
+      - domain_id
+      title: IPReputationDeleteRequest
+      description: Request model for deleting local IP tags.
     Insight:
       properties:
         id:
@@ -10715,8 +10995,7 @@ components:
           title: Last Status Change
           description: The date and time the insight was last seen in ISO 8601 format
         status:
-          allOf:
-          - $ref: '#/components/schemas/InsightStatus'
+          $ref: '#/components/schemas/InsightStatus'
           description: The status of the insight
         description:
           type: string
@@ -10885,11 +11164,8 @@ components:
             condition
           default: false
         ip_address:
-          anyOf:
-          - type: string
-            format: ipv4
-          - type: string
-            format: ipv6
+          type: string
+          format: ipvanyaddress
           title: Ip Address
           description: A single IPv4 or IPv6 address
       type: object
@@ -10935,8 +11211,7 @@ components:
     IpInfo:
       properties:
         whois:
-          allOf:
-          - $ref: '#/components/schemas/WhoisInfo'
+          $ref: '#/components/schemas/WhoisInfo'
           description: The WHOIS information for the IP address
         risk_score:
           type: string
@@ -10991,19 +11266,13 @@ components:
             condition
           default: false
         lower_bound:
-          anyOf:
-          - type: string
-            format: ipv4
-          - type: string
-            format: ipv6
+          type: string
+          format: ipvanyaddress
           title: Lower Bound
           description: The lower bound IPv4 or IPv6 address to match against
         upper_bound:
-          anyOf:
-          - type: string
-            format: ipv4
-          - type: string
-            format: ipv6
+          type: string
+          format: ipvanyaddress
           title: Upper Bound
           description: The upper bound IPv4 or IPv6 address to match against
       type: object
@@ -11034,6 +11303,38 @@ components:
       required:
       - enabled
       title: JavascriptDisabledPageData
+    LocalIpTagsRecord:
+      properties:
+        date:
+          type: integer
+          title: Date
+          description: The timestamp of the last request from the IP to the domain
+        domain:
+          $ref: '#/components/schemas/DomainInfo'
+        ip:
+          type: string
+          title: Ip
+          description: The IP address
+        local_tags:
+          items:
+            type: string
+          type: array
+          title: Local Tags
+          description: The tags associated with the IP in the context of the domain
+        global_tags:
+          items:
+            type: string
+          type: array
+          title: Global Tags
+          description: The tags associated with the IP globally
+      type: object
+      required:
+      - date
+      - domain
+      - ip
+      - local_tags
+      - global_tags
+      title: LocalIpTagsRecord
     Network:
       properties:
         client_ip:
@@ -11067,8 +11368,11 @@ components:
           default: false
         organization:
           type: string
+          maxLength: 100
           title: Organization
           description: The organization to match against
+          examples:
+          - UptimeRobot s.r.o
       type: object
       required:
       - organization
@@ -11414,6 +11718,33 @@ components:
       - count
       - results
       title: PaginatedResponse[Insight]
+    PaginatedResponse_LocalIpTagsRecord_:
+      properties:
+        limit:
+          type: integer
+          title: Limit
+          description: Number of items requested in the response
+        offset:
+          type: integer
+          title: Offset
+          description: Items response offset used
+        count:
+          type: integer
+          title: Count
+          description: Number of items contain in the response
+        results:
+          items:
+            $ref: '#/components/schemas/LocalIpTagsRecord'
+          type: array
+          title: Results
+          description: List of items returned in the response following given criteria
+      type: object
+      required:
+      - limit
+      - offset
+      - count
+      - results
+      title: PaginatedResponse[LocalIpTagsRecord]
     PaginatedResponse_Organization_:
       properties:
         limit:
@@ -11712,17 +12043,17 @@ components:
           examples:
           - SQL Injection
         user_agent:
-          allOf:
-          - $ref: '#/components/schemas/UserAgent'
+          $ref: '#/components/schemas/UserAgent'
           description: User agent
         network:
           $ref: '#/components/schemas/Network'
         request_time:
           type: string
+          format: date-time
           title: Request Time
           description: The time of the request
           examples:
-          - '2022-05-31 02:10:17.000'
+          - '2025-08-28T07:13:59'
         reference_id:
           type: string
           title: Reference Id
@@ -11760,6 +12091,7 @@ components:
           examples:
           - '3'
         request_headers:
+          additionalProperties: true
           type: object
           title: Request Headers
           description: HTTP request headers
@@ -11873,28 +12205,24 @@ components:
     RequestRateCondition:
       properties:
         ips:
-          anyOf:
-          - items:
-              anyOf:
-              - type: string
-                format: ipv4
-              - type: string
-                format: ipv6
-            type: array
-          - type: 'null'
+          items:
+            type: string
+            format: ipvanyaddress
+          type: array
+          maxItems: 10
           title: Ips
           description: A list of source IPs that can trigger a request rate condition
         http_methods:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/HTTPMethod'
-            type: array
-          - type: 'null'
+          items:
+            $ref: '#/components/schemas/HTTPMethod'
+          type: array
           title: Http Methods
           description: Possible HTTP request methods that can trigger a request rate
             condition
         path_pattern:
           type: string
+          maxLength: 50
+          minLength: 1
           title: Path Pattern
           description: A regular expression matching the URL path of the incoming
             request
@@ -11915,11 +12243,10 @@ components:
           description: The number of seconds that the WAAP measures incoming requests
             over before triggering a request rate condition
         user_defined_tag:
-          anyOf:
-          - type: string
-            maxLength: 50
-            pattern: ^[a-zA-Z]+[ a-zA-Z0-9]*$
-          - type: 'null'
+          type: string
+          maxLength: 50
+          minLength: 1
+          pattern: ^[a-zA-Z]+[ a-zA-Z0-9]*$
           title: User Defined Tag
           description: A user-defined tag that can be included in incoming requests
             and used to trigger a request rate condition
@@ -12045,11 +12372,14 @@ components:
           default: false
         header:
           type: string
+          maxLength: 50
+          minLength: 1
           pattern: ^[a-zA-Z0-9-]+$
           title: Header
           description: The response header name
         value:
           type: string
+          maxLength: 100
           pattern: ^[a-zA-Z0-9-_ :;.\/\"'?!(){}\[\]@<>=\-\+\*#$&`|~^%]+$
           title: Value
           description: The response header value
@@ -12077,6 +12407,8 @@ components:
           default: false
         header:
           type: string
+          maxLength: 50
+          minLength: 1
           pattern: ^[a-zA-Z0-9-]+$
           title: Header
           description: The response header name
@@ -12103,23 +12435,24 @@ components:
     RuleBlockAction:
       properties:
         status_code:
-          anyOf:
-          - $ref: '#/components/schemas/RuleBlockStatusCode'
-          - type: 'null'
+          $ref: '#/components/schemas/RuleBlockStatusCode'
           description: A custom HTTP status code that the WAAP returns if a rule blocks
             a request
         action_duration:
-          anyOf:
-          - type: string
-            pattern: ^[0-9]*[smhd]?$
-          - type: 'null'
+          type: string
+          maxLength: 10
+          minLength: 1
+          pattern: ^[1-9][0-9]*[smhd]?$
           title: Action Duration
           description: How long a rule's block action will apply to subsequent requests.
             Can be specified in seconds or by using a numeral followed by 's', 'm',
-            'h', or 'd' to represent time format (seconds, minutes, hours, or days)
+            'h', or 'd' to represent time format (seconds, minutes, hours, or days).
+            Empty time intervals are not allowed.
           examples:
           - 12h
           - 60s
+          - '30'
+      additionalProperties: false
       type: object
       title: RuleBlockAction
       description: WAAP block action behavior could be configured with response status
@@ -12234,6 +12567,7 @@ components:
           items:
             type: integer
           type: array
+          minItems: 1
           title: Rule Ids
           description: The IDs of the rules to delete
       type: object
@@ -12314,6 +12648,7 @@ components:
       properties:
         id:
           type: integer
+          exclusiveMinimum: 0.0
           title: Id
           description: The domain ID
         name:
@@ -12355,9 +12690,13 @@ components:
           items:
             type: string
           type: array
+          maxItems: 5
           minItems: 1
           title: Tags
           description: A list of tags to match against the request tags
+          examples:
+          - botnetclient
+          - xss
       type: object
       required:
       - tags
@@ -12608,9 +12947,13 @@ components:
           anyOf:
           - type: string
             maxLength: 100
+            minLength: 1
+            pattern: ^[A-Za-z0-9\s.:'";<>?&|\\]+$
+            description: The name assigned to the rule
+            examples:
+            - Block foobar bot
           - type: 'null'
           title: Name
-          description: The name assigned to the rule
         description:
           anyOf:
           - type: string
@@ -12738,8 +13081,7 @@ components:
           - - accounts
             - internal
         status:
-          allOf:
-          - $ref: '#/components/schemas/ApiPathStatus'
+          $ref: '#/components/schemas/ApiPathStatus'
           description: The status of the discovered API path
       type: object
       title: UpdateApiPath
@@ -12772,9 +13114,13 @@ components:
           anyOf:
           - type: string
             maxLength: 100
+            minLength: 1
+            pattern: ^[A-Za-z0-9\s.:'";<>?&|\\]+$
+            description: The name assigned to the rule
+            examples:
+            - Block foobar bot
           - type: 'null'
           title: Name
-          description: The name assigned to the rule
         description:
           anyOf:
           - type: string
@@ -12811,8 +13157,7 @@ components:
     UpdateDomain:
       properties:
         status:
-          allOf:
-          - $ref: '#/components/schemas/DomainUpdateStatus'
+          $ref: '#/components/schemas/DomainUpdateStatus'
           description: The current status of the domain
       additionalProperties: false
       type: object
@@ -12843,11 +13188,9 @@ components:
     UpdateDomainSettings:
       properties:
         ddos:
-          allOf:
-          - $ref: '#/components/schemas/UpdateDomainDdosSettings'
+          $ref: '#/components/schemas/UpdateDomainDdosSettings'
         api:
-          allOf:
-          - $ref: '#/components/schemas/UpdateApiSettings'
+          $ref: '#/components/schemas/UpdateApiSettings'
       additionalProperties: false
       type: object
       title: UpdateDomainSettings
@@ -12858,9 +13201,13 @@ components:
           anyOf:
           - type: string
             maxLength: 100
+            minLength: 1
+            pattern: ^[A-Za-z0-9\s.:'";<>?&|\\]+$
+            description: The name assigned to the rule
+            examples:
+            - Block foobar bot
           - type: 'null'
           title: Name
-          description: The name assigned to the rule
         description:
           anyOf:
           - type: string
@@ -12894,8 +13241,7 @@ components:
     UpdateInsightPayload:
       properties:
         status:
-          allOf:
-          - $ref: '#/components/schemas/InsightStatus'
+          $ref: '#/components/schemas/InsightStatus'
           description: The status of the insight
       type: object
       required:
@@ -12941,10 +13287,6 @@ components:
           description: Whether or not to apply a boolean NOT operation to the rule's
             condition
           default: false
-        url:
-          type: string
-          title: Url
-          description: The URL to match
         match_type:
           type: string
           enum:
@@ -12954,6 +13296,23 @@ components:
           title: Match Type
           description: The type of matching condition.
           default: Contains
+        url:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Url
+          description: 'The pattern to match against the request URL.
+
+            Constraints depend on `match_type`:
+
+
+            - **Exact/Contains**: plain text matching (e.g., `/admin`, must comply
+            with `^[\w!\$~:#\[\]@\(\)\*\+,=\/\-\.\%]+$`).
+
+            - **Regex**: a valid regular expression (e.g., `^/upload(/\d+)?/\w+`).
+            Lookahead/lookbehind constructs are forbidden.'
+          examples:
+          - /wp-admin/
       type: object
       required:
       - url
@@ -13053,8 +13412,11 @@ components:
           default: false
         user_agent:
           type: string
+          maxLength: 300
           title: User Agent
           description: The user agent value to match
+          examples:
+          - curl/
         match_type:
           type: string
           enum:
@@ -13079,7 +13441,12 @@ components:
         tags:
           items:
             type: string
+            maxLength: 50
+            minLength: 1
+            pattern: ^[a-zA-Z]+[ a-zA-Z0-9]*$
+            description: A user-defined tag assigned to the request
           type: array
+          maxItems: 10
           minItems: 1
           title: Tags
           description: A list of user-defined tags to match against the request tags
