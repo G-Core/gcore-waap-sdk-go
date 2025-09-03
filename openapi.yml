@@ -9654,6 +9654,7 @@ components:
           title: Enabled
           description: Indicates whether the custom custom page is active or inactive
       type: object
+      nullable: true
       required:
       - enabled
       title: BlockCsrfPageData
@@ -9688,6 +9689,7 @@ components:
           title: Enabled
           description: Indicates whether the custom custom page is active or inactive
       type: object
+      nullable: true
       required:
       - enabled
       title: BlockPageData
@@ -9787,6 +9789,7 @@ components:
           title: Enabled
           description: Indicates whether the custom custom page is active or inactive
       type: object
+      nullable: true
       required:
       - enabled
       title: CaptchaPageData
@@ -9896,6 +9899,7 @@ components:
           title: Enabled
           description: Indicates whether the custom custom page is active or inactive
       type: object
+      nullable: true
       required:
       - enabled
       title: CookieDisabledPageData
@@ -10095,22 +10099,16 @@ components:
           nullable: true
         block:
           $ref: '#/components/schemas/BlockPageData'
-          nullable: true
         block_csrf:
           $ref: '#/components/schemas/BlockCsrfPageData'
-          nullable: true
         captcha:
           $ref: '#/components/schemas/CaptchaPageData'
-          nullable: true
         cookie_disabled:
           $ref: '#/components/schemas/CookieDisabledPageData'
-          nullable: true
         handshake:
           $ref: '#/components/schemas/HandshakePageData'
-          nullable: true
         javascript_disabled:
           $ref: '#/components/schemas/JavascriptDisabledPageData'
-          nullable: true
         name:
           type: string
           maxLength: 50
@@ -10137,22 +10135,16 @@ components:
           nullable: true
         block:
           $ref: '#/components/schemas/BlockPageData'
-          nullable: true
         block_csrf:
           $ref: '#/components/schemas/BlockCsrfPageData'
-          nullable: true
         captcha:
           $ref: '#/components/schemas/CaptchaPageData'
-          nullable: true
         cookie_disabled:
           $ref: '#/components/schemas/CookieDisabledPageData'
-          nullable: true
         handshake:
           $ref: '#/components/schemas/HandshakePageData'
-          nullable: true
         javascript_disabled:
           $ref: '#/components/schemas/JavascriptDisabledPageData'
-          nullable: true
         name:
           type: string
           maxLength: 50
@@ -10183,22 +10175,16 @@ components:
           nullable: true
         block:
           $ref: '#/components/schemas/BlockPageData'
-          nullable: true
         block_csrf:
           $ref: '#/components/schemas/BlockCsrfPageData'
-          nullable: true
         captcha:
           $ref: '#/components/schemas/CaptchaPageData'
-          nullable: true
         cookie_disabled:
           $ref: '#/components/schemas/CookieDisabledPageData'
-          nullable: true
         handshake:
           $ref: '#/components/schemas/HandshakePageData'
-          nullable: true
         javascript_disabled:
           $ref: '#/components/schemas/JavascriptDisabledPageData'
-          nullable: true
         name:
           title: Name
           description: Name of the custom page set
@@ -10840,6 +10826,7 @@ components:
           title: Enabled
           description: Indicates whether the custom custom page is active or inactive
       type: object
+      nullable: true
       required:
       - enabled
       title: HandshakePageData
@@ -11279,6 +11266,7 @@ components:
           title: Enabled
           description: Indicates whether the custom custom page is active or inactive
       type: object
+      nullable: true
       required:
       - enabled
       title: JavascriptDisabledPageData
